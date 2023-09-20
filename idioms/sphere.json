@@ -1,0 +1,85 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 600,
+    "height": 600,
+    "projection": {
+        "type": "naturalEarth1",
+        "rotate": {
+            "expr": "[rotate0, 0]"
+        }
+    },
+    "params": [
+        {
+            "name": "rotate0",
+            "value": 0,
+            "bind": {
+                "input": "range",
+                "min": -90,
+                "max": 90,
+                "step": 1
+            }
+        }
+    ],
+    "layer": [
+        {
+            "data": {
+                "sphere": true
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "aliceblue"
+            }
+        },
+        {
+            "data": {
+                "name": "world",
+                "url": "../data/world-110m.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "countries"
+                }
+            },
+            "transform": [
+                {
+                  "lookup": "properties.name",
+                  "from": {
+                    "data": {
+                      "url": "../data/count.csv"
+                    },
+                    "key": "Country",
+                    "fields": ["Count"]
+                  }
+                },
+                {
+                  "calculate": "isValid(datum.Count) ? datum.Count : 0.1",
+                  "as": "Count"
+                }
+              ],
+            "mark": {
+                "type": "geoshape",
+                "fill": "mintcream",
+                "stroke": "black"
+            },
+            "encoding": {
+                "fill": {
+                  "condition": {
+                    "test": "datum.Count >= 0",
+                    "field": "Count",
+                    "type": "quantitative",
+                    "scale": {
+                      "domain": [1, 550],
+                      "type": "log"
+                    },
+                      "legend": {
+                          "title": "Unicorn Companies",
+                          "clipHeight": 30,
+                          "orient": "bottom-right",
+                          "gradientLength": 300
+                      }
+                  },
+                  "value": "lightblue"
+                }
+              }
+        }
+    ]
+}

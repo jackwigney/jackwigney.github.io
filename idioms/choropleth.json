@@ -1,0 +1,54 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 1000,
+    "height": 600,
+    "data": {
+      "url": "../data/world-110m.json",
+      "format": {
+        "type": "topojson",
+        "feature": "countries"
+      }
+    },
+    "transform": [
+      {
+        "lookup": "properties.name",
+        "from": {
+          "data": {
+            "url": "../data/count.csv"
+          },
+          "key": "Country",
+          "fields": ["Count"]
+        }
+      },
+      {
+        "calculate": "isValid(datum.Count) ? datum.Count : 0.01",
+        "as": "Count"
+      }
+    ],
+    "projection": {
+      "type": "mercator"
+    },
+    "mark": {"type": "geoshape", "tooltip": true},
+    
+    "encoding": {
+      "fill": {
+        "condition": {
+          "test": "datum.Count >= 0",
+          "field": "Count",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0.01, 550],
+            "type": "log"
+          },
+            "legend": {
+                "title": "Unicorn Companies",
+                "clipHeight": 30,
+                "orient": "bottom-right",
+                "gradientLength": 300
+            }
+        },
+        "value": "lightblue"
+      }
+    }
+  }
+  
