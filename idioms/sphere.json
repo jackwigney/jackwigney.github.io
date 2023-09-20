@@ -1,7 +1,31 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 600,
-    "height": 600,
+    "width": 1200,
+    "height": 800,
+    "config": {
+        "axis": {
+            "grid": true,
+            "gridColor": "#dedede",
+            "gridOpacity": 1,
+            "domainColor": "null"
+        },
+        "legend": {
+            "titleColor": "black",
+            "titleFontSize": 14,
+            "labelFontSize": 12,
+            "labelColor": "black",
+            "symbolStrokeWidth": 2,
+            "symbolSize": 100,
+            "symbolType": "square",
+            "orient": "bottom",
+            "clipHeight": 30,
+            "fillColor": "white"
+        },
+        "background": "null",
+        "view": {
+            "stroke": "null"
+        }
+    },
     "projection": {
         "type": "naturalEarth1",
         "rotate": {
@@ -41,45 +65,78 @@
             },
             "transform": [
                 {
-                  "lookup": "properties.name",
-                  "from": {
-                    "data": {
-                      "url": "../data/count.csv"
-                    },
-                    "key": "Country",
-                    "fields": ["Count"]
-                  }
+                    "lookup": "properties.name",
+                    "from": {
+                        "data": {
+                            "url": "../data/final.csv"
+                        },
+                        "key": "Country",
+                        "fields": [
+                            "Population",
+                            "Unicorn Count",
+                            "Unicorns / 10M Population",
+                            "Bin"
+                        ]
+                    }
                 },
                 {
-                  "calculate": "isValid(datum.Count) ? datum.Count : 0.1",
-                  "as": "Count"
+                    "calculate": "datum.Bin == null ? '0' : datum.Bin",
+                    "as": "Bin"
                 }
-              ],
+            ],
+            "params": [
+                {
+                    "name": "bin_highlight",
+                    "select": {
+                        "type": "point",
+                        "fields": ["Bin"]
+                    },
+                    "bind": "legend"
+                }
+            ],
             "mark": {
                 "type": "geoshape",
                 "fill": "mintcream",
-                "stroke": "black"
+                "stroke": "black",
+                "tooltip": {
+                    "content": "data"
+                }
             },
             "encoding": {
                 "fill": {
-                  "condition": {
-                    "test": "datum.Count >= 0",
-                    "field": "Count",
-                    "type": "quantitative",
-                    "scale": {
-                      "domain": [1, 550],
-                      "type": "log"
+                    "field": "Bin",
+                    "type": "nominal",
+                    "legend": {
+                        "title": "Number of Unicorns",
+                        "clipHeight": 30,
+                        "orient": "bottom-right"
                     },
-                      "legend": {
-                          "title": "Unicorn Companies",
-                          "clipHeight": 30,
-                          "orient": "bottom-right",
-                          "gradientLength": 300
-                      }
-                  },
-                  "value": "lightblue"
+                    "sort": [
+                        "0",
+                        "1-3",
+                        "4-6",
+                        "7-10",
+                        "11-20",
+                        "21-50",
+                        "51+"
+                    ],
+                    "scale": {
+                        "range": [
+                            "#ECECEC",
+                            "#BFD3C1",
+                            "#94A89A",
+                            "#6A7E76",
+                            "#3F5452",
+                            "#1B2B2B",
+                            "#000000"
+                        ]
+                    }
+                },
+                "opacity": {
+                    "condition": {"param": "bin_highlight", "value": 1},
+                    "value": 0.2
                 }
-              }
+            }
         }
     ]
 }

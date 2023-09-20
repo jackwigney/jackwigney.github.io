@@ -84,21 +84,32 @@
     
     "data": [
       {
+        "name": "graticule",
+        "transform": [
+          { "type": "graticule", "step": [15, 15] }
+        ]
+      },
+      {
         "name": "world",
         "url": "data/world-110m.json",
         "format": {
           "type": "topojson",
           "feature": "countries"
         }
-      },
-      {
-        "name": "graticule",
-        "transform": [
-          { "type": "graticule", "step": [15, 15] }
-        ]
       }
     ],
-  
+    "transform": [
+      {
+        "lookup": "properties.name",
+        "from": {
+          "data": {
+            "url": "../data/final.csv"
+          },
+          "key": "Country",
+          "fields": ["Population", "Unicorn Count", "Unicorns / 10M Population", "Bin"]
+        }
+      }
+    ],
     "marks": [
       {
         "type": "shape",
@@ -106,7 +117,7 @@
         "encode": {
           "enter": {
             "strokeWidth": {"value": 1},
-            "stroke": {"value": "#ddd"},
+            "stroke": {"value": "pink"},
             "fill": {"value": null}
           }
         },
@@ -120,13 +131,16 @@
         "encode": {
           "enter": {
             "strokeWidth": {"value": 0.5},
-            "stroke": {"value": "#bbb"},
-            "fill": {"value": "#e5e8d3"}
+            "stroke": {"value": "aquamarine"},
+            "fill": {
+              "value": "lightgray"
+            }
           }
         },
         "transform": [
           { "type": "geoshape", "projection": "projection" }
         ]
       }
+      
     ]
   }
