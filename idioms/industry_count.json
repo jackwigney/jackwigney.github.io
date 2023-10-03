@@ -1,0 +1,70 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Number of Unicorn Companies Founded each Year",
+    "data": {"url": "../data/unicorn.csv"},
+    "width": 1200,
+    "height": 500,
+    "transform": [
+      {"filter": "datum['Founded Year'] > 1995"},
+      {
+        "aggregate": [
+          {"op": "count", "field": "Company", "as": "count"}
+        ],
+        "groupby": ["Founded Year", "Industry"]
+      }
+    ],
+    "encoding": {
+      "y": {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Count of Unicorn Companies"
+      },
+      "x": {
+        "field": "Founded Year",
+        "type": "temporal",
+        "title": "Year Founded"
+      },
+      "color": {
+        "field": "Industry",
+        "type": "nominal"
+      }
+    },
+    "layer": [
+      {
+        "params": [
+          {
+            "name": "industry_select",
+            "select": {"type": "point", "fields": ["Industry"]},
+            "bind": "legend"
+          }
+        ],
+        "mark": "line",
+        "encoding": {
+          "opacity": {
+            "condition": {"param": "industry_select", "value": 1},
+            "value": 0.2
+          }
+        }
+      },
+      {
+        "params": [
+          {
+            "name": "hover",
+            "select": {"type": "point", "on": "mouseover", "clear": "mouseout"}
+          }
+        ],
+        "mark": {"type": "circle", "tooltip": true},
+        "encoding": {
+          "opacity": {
+            "condition": {"test": {"param": "hover", "empty": false}, "value": 1},
+            "value": 0
+          },
+          "size": {
+            "condition": {"test": {"param": "hover", "empty": false}, "value": 48},
+            "value": 100
+          }
+        }
+      }
+    ]
+  }
+  
