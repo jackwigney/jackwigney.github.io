@@ -1,5 +1,5 @@
 var vg_1 = "idioms/sphere.json";
-var vg_2 = "idioms/bubble.json"
+var vg_2 = "idioms/bubble2.json"
 var vg_3 = "idioms/scatter.json"
 
 // vegaEmbed("#scatter", vg_3).then(function(result){
@@ -55,7 +55,7 @@ vegaEmbed("#map", vg_1).then(function(result) {
 }).catch(console.error);
 
 vegaEmbed("#count", vg_2).then(function(result){
-    const data = result.view.data('unicorns');
+    // const data = result.view.data('unicorns');
     
-    console.log(data.map((d) => d));
+    // console.log(data.map((d) => d));
 }).catch(console.error);

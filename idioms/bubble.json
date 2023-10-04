@@ -13,9 +13,11 @@
             "symbolStrokeWidth": 2,
             "symbolSize": 100,
             "symbolType": "circle",
-            "orient": "right",
+            "orient": "bottom",
             "clipHeight": 30,
-            "fillColor": "whitesmoke"
+            "fillColor": "whitesmoke",
+            "columns": 0,
+            "cornerRadius": 10
         },
         "background": "whitesmoke",
         "view": {

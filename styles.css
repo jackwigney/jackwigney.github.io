@@ -10,3 +10,9 @@ body{
     align-items: center;
     justify-content: center;
 }
+
+#count{
+    border: blueviolet;
+    border-width: 10px;
+    border-color: blueviolet;
+}

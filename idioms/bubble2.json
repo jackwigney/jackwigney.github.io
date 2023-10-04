@@ -1,0 +1,150 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "../data/unicorn.csv"
+    },
+    "title": "Unicorn Companies Founded per Year",
+    "config": {
+        "title": {"align": "left"}
+    },
+    "vconcat": [
+        {
+            "transform": [
+                {
+                    "filter": "datum['Founded Year'] > 1995"
+                },
+                {
+                    "aggregate": [
+                        {
+                            "op": "count",
+                            "field": "Company",
+                            "as": "count"
+                        }
+                    ],
+                    "groupby": [
+                        "Founded Year",
+                        "Industry"
+                    ]
+                }
+            ],
+            "params": [
+                {
+                    "name": "count_highlight",
+                    "select": {
+                        "type": "point",
+                        "fields": [
+                            "count"
+                        ]
+                    },
+                    "bind": "legend"
+                }
+            ],
+            "width": 600,
+            "height": 400,
+            "mark": {
+                "type": "circle",
+                "opacity": 0.8,
+                "stroke": "black",
+                "strokeWidth": 1,
+                "tooltip": true
+            },
+            "encoding": {
+                "x": {
+                    "field": "Founded Year",
+                    "type": "temporal",
+                    "axis": {
+                        "grid": false
+                    },
+                    "scale": {
+                        "domain": {
+                            "param": "brush"
+                        }
+                    }
+                },
+                "y": {
+                    "field": "Industry",
+                    "type": "nominal",
+                    "axis": {
+                        "title": ""
+                    }
+                },
+                "size": {
+                    "field": "count",
+                    "type": "quantitative",
+                    "title": "Count of companies",
+                    "legend": {
+                        "clipHeight": 30
+                    },
+                    "scale": {
+                        "rangeMax": 250
+                    }
+                },
+                "color": {
+                    "field": "Industry",
+                    "type": "nominal",
+                    "legend": null
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "count_highlight",
+                        "value": 1
+                    },
+                    "value": 0.2
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum['Founded Year'] > 1995"
+                },
+                {
+                    "aggregate": [
+                        {
+                            "op": "count",
+                            "field": "Company",
+                            "as": "count"
+                        }
+                    ],
+                    "groupby": [
+                        "Founded Year"
+                    ]
+                }
+            ],
+            "params": [
+                {
+                    "name": "brush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ],
+            "width": 600,
+            "height": 100,
+            "mark": {
+                "type": "circle",
+                "opacity": 0.8,
+                "stroke": "black",
+                "strokeWidth": 1,
+                "tooltip": true
+            },
+            "encoding": {
+                "x": {
+                    "field": "Founded Year",
+                    "type": "temporal"
+                },
+                "y": {
+                    "field": "count",
+                    "type": "quantitative",
+                    "axis": {
+                        "tickCount": 3,
+                        "grid": false
+                    }
+                }
+            }
+        }
+    ]
+}
