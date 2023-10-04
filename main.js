@@ -55,7 +55,7 @@ vegaEmbed("#map", vg_1).then(function(result) {
 }).catch(console.error);
 
 vegaEmbed("#count", vg_2).then(function(result){
-    // const data = result.view.data('unicorns');
+    const data = result.view.data('unicorns');
     
-    // console.log(data.map((d) => d));
+    console.log(data.map((d) => d));
 }).catch(console.error);

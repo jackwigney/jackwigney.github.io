@@ -1,6 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
+        "name": "unicorns",
         "url": "../data/unicorn.csv"
     },
     "title": "Unicorn Companies Founded per Year",
@@ -10,9 +11,6 @@
     "vconcat": [
         {
             "transform": [
-                {
-                    "filter": "datum['Founded Year'] > 1995"
-                },
                 {
                     "aggregate": [
                         {
@@ -27,124 +25,163 @@
                     ]
                 }
             ],
-            "params": [
-                {
-                    "name": "count_highlight",
-                    "select": {
-                        "type": "point",
-                        "fields": [
-                            "count"
-                        ]
-                    },
-                    "bind": "legend"
-                }
-            ],
             "width": 600,
             "height": 400,
-            "mark": {
-                "type": "circle",
-                "opacity": 0.8,
-                "stroke": "black",
-                "strokeWidth": 1,
-                "tooltip": true
-            },
-            "encoding": {
-                "x": {
-                    "field": "Founded Year",
-                    "type": "temporal",
-                    "axis": {
-                        "grid": false
-                    },
-                    "scale": {
-                        "domain": {
-                            "param": "brush"
+            "layer": [{
+                "params": [
+                    {
+                        "name": "count_highlight",
+                        "select": {
+                            "type": "point",
+                            "fields": [
+                                "count"
+                            ]
+                        },
+                        "bind": "legend"
+                    }
+                ],
+                "mark": {
+                    "type": "circle",
+                    "opacity": 0.8,
+                    "stroke": "black",
+                    "strokeWidth": 1,
+                    "tooltip": true
+                },
+                "encoding": {
+                    "x": {
+                        "field": "Founded Year",
+                        "type": "temporal",
+                        "axis": {
+                            "grid": false
+                        },
+                        "scale": {
+                            "domain": {
+                                "param": "brush"
+                            }
                         }
-                    }
-                },
-                "y": {
-                    "field": "Industry",
-                    "type": "nominal",
-                    "axis": {
-                        "title": ""
-                    }
-                },
-                "size": {
-                    "field": "count",
-                    "type": "quantitative",
-                    "title": "Count of companies",
-                    "legend": {
-                        "clipHeight": 30
                     },
-                    "scale": {
-                        "rangeMax": 250
-                    }
-                },
-                "color": {
-                    "field": "Industry",
-                    "type": "nominal",
-                    "legend": null
-                },
-                "opacity": {
-                    "condition": {
-                        "param": "count_highlight",
-                        "value": 1
+                    "y": {
+                        "field": "Industry",
+                        "type": "nominal",
+                        "axis": {
+                            "title": ""
+                        }
                     },
-                    "value": 0.2
+                    "size": {
+                        "field": "count",
+                        "type": "quantitative",
+                        "title": "Count of companies",
+                        "legend": {
+                            "clipHeight": 30
+                        },
+                        "scale": {
+                            "rangeMax": 270
+                        }
+                    },
+                    "color": {
+                        "field": "Industry",
+                        "type": "nominal",
+                        "legend": null
+                    },
+                    "opacity": {
+                        "condition": {
+                            "param": "count_highlight",
+                            "value": 1
+                        },
+                        "value": 0.2
+                    }
                 }
-            }
+            }]
         },
         {
-            "transform": [
-                {
-                    "filter": "datum['Founded Year'] > 1995"
-                },
-                {
-                    "aggregate": [
-                        {
-                            "op": "count",
-                            "field": "Company",
-                            "as": "count"
-                        }
-                    ],
-                    "groupby": [
-                        "Founded Year"
-                    ]
-                }
-            ],
-            "params": [
-                {
-                    "name": "brush",
-                    "select": {
-                        "type": "interval",
-                        "encodings": [
-                            "x"
-                        ]
-                    }
-                }
-            ],
             "width": 600,
             "height": 100,
-            "mark": {
-                "type": "circle",
-                "opacity": 0.8,
-                "stroke": "black",
-                "strokeWidth": 1,
-                "tooltip": true
-            },
-            "encoding": {
-                "x": {
+            "layer": [
+              {
+                "transform": [
+                  {
+                    "aggregate": [
+                      {
+                        "op": "count",
+                        "field": "Company",
+                        "as": "count"
+                      }
+                    ],
+                    "groupby": [
+                      "Founded Year"
+                    ]
+                  }
+                ],
+                "params": [
+                  {
+                    "name": "brush",
+                    "select": {
+                      "type": "interval",
+                      "encodings": [
+                        "x"
+                      ]
+                    }
+                  }
+                ],
+                "mark": {
+                  "type": "circle",
+                  "opacity": 0.8,
+                  "stroke": "black",
+                  "strokeWidth": 1,
+                  "tooltip": true
+                },
+                "encoding": {
+                  "x": {
                     "field": "Founded Year",
                     "type": "temporal"
-                },
-                "y": {
+                  },
+                  "y": {
                     "field": "count",
                     "type": "quantitative",
                     "axis": {
-                        "tickCount": 3,
-                        "grid": false
+                      "tickCount": 3,
+                      "grid": false
                     }
+                  }
                 }
-            }
-        }
+              },
+              {
+                "mark": {
+                  "type": "rule",
+                  "color": "red",
+                  "style": "dashed"
+                },
+                "encoding": {
+                  "y": {
+                    "value": 91
+                  }
+                }
+              },
+              {
+                "mark": {
+                  "type": "text",
+                  "align": "right",
+                  "baseline": "bottom",
+                  "dx": -5,
+                  "dy": -5,
+                  "fontSize": 10,
+                  "color": "red",
+                  "fontWeight": "lighter"
+                },
+                "encoding": {
+                  "x": {
+                    "value": 300
+                  },
+                  "y": {
+                    "value": 90
+                  },
+                  "text": {
+                    "value": "Average Unicorn Companies Founded per Year: 10.16"
+                  }
+                }
+              }
+            ]
+          }
+          
     ]
 }
