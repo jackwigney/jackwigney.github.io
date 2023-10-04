@@ -1,9 +1,12 @@
 body{
     color: aqua;
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 #map{
-    height: 600px;
-    width: 100%;
-    background-color: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

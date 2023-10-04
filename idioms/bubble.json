@@ -1,0 +1,74 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "../data/unicorn.csv"
+    },
+    
+    "config": {
+        "legend": {
+            "titleColor": "black",
+            "titleFontSize": 14,
+            "labelFontSize": 12,
+            "labelColor": "black",
+            "symbolStrokeWidth": 2,
+            "symbolSize": 100,
+            "symbolType": "circle",
+            "orient": "right",
+            "clipHeight": 30,
+            "fillColor": "whitesmoke"
+        },
+        "background": "whitesmoke",
+        "view": {
+            "stroke": "null"
+        }
+    },
+    "transform": [
+        {"filter": "datum['Founded Year'] > 1995"},
+        {
+          "aggregate": [
+            {"op": "count", "field": "Company", "as": "count"}
+          ],
+          "groupby": ["Founded Year", "Industry"]
+        }
+      ],
+      "params": [
+        {
+            "name": "count_highlight",
+            "select": {
+                "type": "point",
+                "fields": ["count"]
+            },
+            "bind": "legend"
+        }
+    ],
+    "width": 600,
+    "height": 400,
+    "mark": {
+      "type": "circle",
+      "opacity": 0.8,
+      "stroke": "black",
+      "strokeWidth": 1,
+      "tooltip":true
+    },
+    "encoding": {
+      "x": {
+        "field": "Founded Year",
+        "type": "temporal",
+        "axis": {"grid": false}
+      },
+      "y": {"field": "Industry", "type": "nominal", "axis": {"title": ""}},
+      "size": {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Count of companies",
+        "legend": {"clipHeight": 30},
+        "scale": {"rangeMax": 250}
+      },
+      "color": {"field": "Industry", "type": "nominal", "legend": null}, 
+      "opacity": {
+        "condition": {"param": "count_highlight", "value": 1},
+        "value": 0.2
+    }
+    }
+  }
+  

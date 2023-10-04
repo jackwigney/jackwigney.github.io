@@ -1,0 +1,49 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "A scatterplot showing Unicorn Company Valuation vs Total raised in Billions of dollars",
+    "data": {
+        "url": "../data/unicorn.csv"
+    },
+    "transform": [
+        {
+            "calculate": "datum['Total Raised'] / 100000000",
+            "as": "Total Raised ($100M)"
+        }
+    ],
+    "params": [{
+        "name": "grid",
+        "select": "interval",
+        "bind": "scales"
+      },
+      {
+        "name": "industry_select",
+        "select": {"type": "point", "fields": ["Industry"]},
+        "bind": "legend"
+      }],
+    "mark": {
+        "type": "point",
+        "tooltip": {
+            "content": "data"
+        }
+    },
+    "encoding": {
+        "x": {
+            "field": "Valuation ($B)",
+            "type": "quantitative",
+            "scale": {"domain": [0.5, 5]}
+        },
+        "y": {
+            "field": "Total Raised ($100M)",
+            "type": "quantitative",
+            "scale": {"domain": [0.5, 5]}
+        },
+        "color": {
+            "field": "Industry",
+            "type": "nominal"
+        },
+        "opacity": {
+            "condition": {"param": "industry_select", "value": 1},
+            "value": 0
+          }
+    }
+}

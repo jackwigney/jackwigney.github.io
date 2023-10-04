@@ -1,7 +1,9 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Number of Unicorn Companies Founded each Year",
-    "data": {"url": "../data/unicorn.csv"},
+    "data": {
+        "name": "unicorns",
+        "url": "../data/unicorn.csv"},
     "width": 1200,
     "height": 500,
     "transform": [
@@ -62,7 +64,13 @@
           "size": {
             "condition": {"test": {"param": "hover", "empty": false}, "value": 48},
             "value": 100
-          }
+          },
+          "tooltip": [
+            {"field": "count", "type": "nominal", "title": "Count of Unicorns"},
+            {"field": "Founded Year", "type": "temporal", "title": "Year Founded"},
+            {"field": "Industry", "type": "nominal", "title": "Industry"},
+            {"field": "AverageValuation", "type": "nominal", "title": "Average Valuation"}
+          ]
         }
       }
     ]
