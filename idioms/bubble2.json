@@ -44,8 +44,7 @@
                     "type": "circle",
                     "opacity": 0.8,
                     "stroke": "black",
-                    "strokeWidth": 1,
-                    "tooltip": true
+                    "strokeWidth": 1
                 },
                 "encoding": {
                     "x": {
@@ -89,7 +88,12 @@
                             "value": 1
                         },
                         "value": 0.2
-                    }
+                    },
+                    "tooltip": [
+                        {"field": "Founded Year", "type": "temporal", "title": "Year Founded", "format": "%Y"},
+                        {"field": "count", "type": "nominal", "title": "Number of Unicorns", "format": ","},
+                        {"field": "Industry", "type": "nominal", "title": "Industry"}
+                    ]
                 }
             }]
         },
@@ -127,8 +131,7 @@
                   "type": "circle",
                   "opacity": 0.8,
                   "stroke": "black",
-                  "strokeWidth": 1,
-                  "tooltip": true
+                  "strokeWidth": 1
                 },
                 "encoding": {
                   "x": {
@@ -141,8 +144,13 @@
                     "axis": {
                       "tickCount": 3,
                       "grid": false
-                    }
-                  }
+                    },
+                    "title": "Total Number of Unicorns"
+                  },
+                  "tooltip": [
+                    {"field": "Founded Year", "type": "temporal", "title": "Year Founded", "format": "%Y"},
+                    {"field": "count", "type": "nominal", "title": "Total Number of Unicorns", "format": ","}
+                  ]
                 }
               },
               {

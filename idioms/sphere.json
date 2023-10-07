@@ -97,6 +97,10 @@
                 {
                     "calculate": "datum.Bin == null ? '0' : datum.Bin",
                     "as": "Bin"
+                },
+                {
+                    "calculate": "datum['Unicorns / 10M Population'] == null ? '0' : datum['Unicorns / 10M Population']",
+                    "as": "Unicorns / 10M Population"
                 }
             ],
             "params": [
@@ -112,10 +116,7 @@
             "mark": {
                 "type": "geoshape",
                 "fill": "mintcream",
-                "stroke": "black",
-                "tooltip": {
-                    "content": "data"
-                }
+                "stroke": "black"
             },
             "encoding": {
                 "fill": {
@@ -150,7 +151,13 @@
                 "opacity": {
                     "condition": {"param": "bin_highlight", "value": 1},
                     "value": 0.2
-                }
+                },
+                "tooltip": [
+                        {"field": "properties.name", "type": "nominal", "title": "Country Name"},
+                        {"field": "Unicorn Count", "type": "nominal", "title": "Number of Unicorns", "format": ","},
+                        {"field": "Population", "type": "quantitative", "title": "Population", "format": ","},
+                        {"field": "Unicorns / 10M Population", "type": "nominal", "title": "Unicorns / 10M Population"}
+                ]
             }
         }
     ]
