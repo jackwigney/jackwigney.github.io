@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Top 10 Cities with the Most Unicorn Companies (Top 10 Only)",
+  "width":700,
+  "height":700,
+  "data": {
+    "name": "table",
+    "url": "../data/unicorn.csv"},
+    "config": {
+      "background": "#dedede",
+      "axis": {
+          "labelFontSize": 12,  
+          "titleFontSize": 14   
+        }
+  },
+  "transform": [
+    {
+      "aggregate": [
+        {"op": "count", "as": "count"},
+        {"op": "sum", "field": "Valuation ($B)", "as": "totalValuation"}
+      ],
+      "groupby": ["City", "Country"]
+    },
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "count", "order": "descending"}]
+    },
+    {
+      "calculate": "datum['rank'] <= 10 ? datum['rank'] : null", 
+      "as": "rank"
+    },
+    {
+      "filter": {"field": "rank", "valid": true} 
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Number of Unicorn Companies"
+    },
+    "y": {
+      "field": "City",
+      "type": "nominal",
+      "title": "City",
+      "sort": {"field": "rank"}
+    },
+    "tooltip": [
+      {"field": "City", "type": "nominal", "title": "City"},
+      {"field": "Country", "type": "nominal", "title": "Country"},
+      {"field": "count", "type": "nominal", "title": "Number of Unicorns", "format": ","},
+      {"field": "totalValuation", "type": "quantitative", "title": "Total Company Valuation ($B)", "format": ","}
+    ],
+    "opacity": {
+      "condition": {"test": "datum.count >= 52.6", "value": 1},
+      "value": 0.2
+    },
+    "stroke": {
+      "value": "black"
+    },
+    "fill": {
+      "value": "#6A7E76"
+    }
+  }
+}

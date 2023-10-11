@@ -4,9 +4,12 @@
         "name": "unicorns",
         "url": "../data/unicorn.csv"
     },
-    "title": "Unicorn Companies Founded per Year",
     "config": {
-        "title": {"align": "left"}
+        "background": "#dedede",
+        "axis": {
+            "labelFontSize": 12,  
+            "titleFontSize": 14   
+          }
     },
     "vconcat": [
         {
@@ -25,21 +28,9 @@
                     ]
                 }
             ],
-            "width": 600,
-            "height": 400,
+            "width": 2000,
+            "height": 600,
             "layer": [{
-                "params": [
-                    {
-                        "name": "count_highlight",
-                        "select": {
-                            "type": "point",
-                            "fields": [
-                                "count"
-                            ]
-                        },
-                        "bind": "legend"
-                    }
-                ],
                 "mark": {
                     "type": "circle",
                     "opacity": 0.8,
@@ -51,7 +42,8 @@
                         "field": "Founded Year",
                         "type": "temporal",
                         "axis": {
-                            "grid": false
+                            "grid": false,
+                            "title": ""
                         },
                         "scale": {
                             "domain": {
@@ -70,11 +62,9 @@
                         "field": "count",
                         "type": "quantitative",
                         "title": "Count of companies",
-                        "legend": {
-                            "clipHeight": 30
-                        },
+                        "legend": null,
                         "scale": {
-                            "rangeMax": 270
+                            "rangeMax": 400
                         }
                     },
                     "color": {
@@ -83,11 +73,7 @@
                         "legend": null
                     },
                     "opacity": {
-                        "condition": {
-                            "param": "count_highlight",
-                            "value": 1
-                        },
-                        "value": 0.2
+                        "value": 0.9
                     },
                     "tooltip": [
                         {"field": "Founded Year", "type": "temporal", "title": "Year Founded", "format": "%Y"},
@@ -98,8 +84,8 @@
             }]
         },
         {
-            "width": 600,
-            "height": 100,
+            "width": 2000,
+            "height": 150,
             "layer": [
               {
                 "transform": [
@@ -161,7 +147,7 @@
                 },
                 "encoding": {
                   "y": {
-                    "value": 91
+                    "value": 137
                   }
                 }
               },
@@ -170,9 +156,9 @@
                   "type": "text",
                   "align": "right",
                   "baseline": "bottom",
-                  "dx": -5,
+                  "dx": 100,
                   "dy": -5,
-                  "fontSize": 10,
+                  "fontSize": 16,
                   "color": "red",
                   "fontWeight": "lighter"
                 },
