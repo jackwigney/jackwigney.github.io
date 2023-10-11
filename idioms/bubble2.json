@@ -28,7 +28,7 @@
                     ]
                 }
             ],
-            "width": 1700,
+            "width": 1500,
             "height": 600,
             "layer": [{
                 "mark": {
@@ -84,7 +84,7 @@
             }]
         },
         {
-            "width": 1700,
+            "width": 1500,
             "height": 150,
             "layer": [
               {
