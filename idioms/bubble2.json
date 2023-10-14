@@ -11,10 +11,19 @@
             "titleFontSize": 14   
           }
     },
+    "transform": [
+        {
+          "filter": "datum['Founded Year'] >= 1990"
+        }
+      ],
     "vconcat": [
         {
             "transform": [
                 {
+                    "filter": "datum['Founded Year'] >= 1990"
+                  },
+                {
+                    
                     "aggregate": [
                         {
                             "op": "count",
@@ -28,7 +37,7 @@
                     ]
                 }
             ],
-            "width": 1500,
+            "width": 1080,
             "height": 600,
             "layer": [{
                 "mark": {
@@ -84,11 +93,14 @@
             }]
         },
         {
-            "width": 1500,
+            "width": 1080,
             "height": 150,
             "layer": [
               {
                 "transform": [
+                    {
+                        "filter": "datum['Founded Year'] >= 1990"
+                      },
                   {
                     "aggregate": [
                       {

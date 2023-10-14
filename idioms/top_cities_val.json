@@ -5,8 +5,8 @@
   "data": {
     "url": "../data/unicorn.csv"
   },
-  "width": 600,
-  "height": 700,
+  "width":500,
+  "height":500,
   "config": {
     "background": "#dedede",
     "axis": {

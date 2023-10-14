@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Top 10 Cities with the Most Unicorn Companies (Top 10 Only)",
-  "width":600,
-  "height":700,
+  "width":500,
+  "height":500,
   "data": {
     "name": "table",
     "url": "../data/unicorn.csv"},
@@ -60,7 +60,7 @@
       "value": "black"
     },
     "fill": {
-      "value": "#6A7E76"
+      "value": "#3F5452"
     }
   }
 }
